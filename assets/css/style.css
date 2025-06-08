@@ -17,6 +17,10 @@ body {
   background-color: #060606;
 }
 
+body.nav-active {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -39,7 +43,7 @@ select,
 ion-icon,
 textarea { display: block; }
 
-/* ------------- TOPOGRAPHY ---------------- */
+/* ------------- TYPOGRAPHY ---------------- */
 
 a {
   text-decoration: none;
@@ -55,6 +59,12 @@ li {
 
 p {
   font-size: 1.2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
 }
 
 /* ------------ REUSED STYLE ------------- */
@@ -103,66 +113,6 @@ p {
   text-align: center;
 }
 
-/* --------------- PRELOAD ------------------- */
-
-.preload {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #002901;
-  z-index: 10;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  transition: 500ms ease;
-}
-
-.preload.loaded > * {
-  opacity: 0;
-  transition: ease 100ms;
-}
-
-.preload.loaded {
-  transition-delay: 250ms;
-  transform: translateY(100%);
-}
-
-.preload-circle {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  border: 3px solid white;
-  border-block-start-color: black;
-  margin-block-end: 20px;
-  animation: rotate360 1s linear infinite;
-}
-
-@keyframes rotate360 {
-  0% { transform: rotate(0); }
-  100% { transform: rotate(1turn); }
-}
-
-.preload-text {
-  background-image: linear-gradient(90deg, transparent 10%, white 50%, transparent 90%);
-  background-size: 500%;
-  font-weight: bold; 
-  font-size: calc(2rem + 0.5vw);
-  text-transform: uppercase;
-  line-height: 1em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-stroke: 0.5px black;
-  animation: loadingText linear 2s infinite;
-}
-
-@keyframes loadingText {
-  0% { background-position: 100%; }
-  100% { background-position: 0%; }
-}
-
 /* --------------- HEADER --------------- */
 
 .header {
@@ -187,7 +137,7 @@ p {
   transition-delay: 250ms;
 }
 
-.header .container {
+.header-container {
   padding-inline: 20px;
   display: flex;
   flex-direction: row;
@@ -214,14 +164,6 @@ p {
   margin-block: 3px;
 }
 
-/* .nav-open-btn .line-1 {
-  margin-bottom: 2px;
-} 
-
-.nav-open-btn .line-3 {
-  margin-top: 2px;
-} */
-
 .navbar {
   position: fixed;
   background-color: rgb(40, 40, 40);
@@ -231,8 +173,9 @@ p {
   max-width: 360px;
   width: 100%;
   padding-inline: 30px;
-  padding-block-end: 50px;
-  overflow-y: auto;
+  padding-bottom: 50px;
+  overflow-y: hidden;
+  overflow-x: hidden;
   visibility: hidden;
   z-index: 2;
   transition: 500ms ease;
@@ -245,7 +188,7 @@ p {
 
 .navbar.active {
   visibility: visible;
-  transform: translateX(360px);
+  left: 0;
 }
 
 .navbar .close-btn {
@@ -299,19 +242,6 @@ p {
 .navbar-link:is(:hover, :focus-visible, .active) .span {
   color: #ffe68d;
 }
-
-/* .navbar-link .separator {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%) rotate(45deg);
-  opacity: 0;
-  transition: 250ms ease;
-} */
-
-/* .navbar-link:is(:hover, :focus-visible, .active) .separator {
-  opacity: 1;
-} */
 
 .sidebar-text {
   padding-top: 0.5em;
@@ -500,35 +430,11 @@ p {
   gap: 2em;
 }
 
-.about-title {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
 .about-text {
   margin-block: 2em 1.2em;
   margin-inline: 1em;
   line-height: 1.5;
 }
-/* 
-@keyframes appear {
-  0% {
-    opacity: 0;
-    transform: translateX(300px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-.about-banner img {
-  animation: appear linear;
-  animation-timeline: view();
-  animation-range: entry 0% cover 20%;
-} */
 
 .about-banner img {
   width: 300px;
@@ -548,14 +454,8 @@ p {
   background-image: url('../img/purty-wood.png');
   background-repeat: repeat;
   background-size: auto;
-  opacity: 0.3;
+  opacity: 0.2;
   z-index: -3;
-}
-
-.menu-title {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
 .menu-text {
@@ -610,12 +510,6 @@ p {
   display: flex;
   flex-direction: column;
   gap: 2em;
-}
-
-.gallery-title {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
 .gallery-pictures-ul {
@@ -684,7 +578,7 @@ p {
 .visit-us-title {
   font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 5px;
 }
 
 .visit-us-right p {
@@ -1106,6 +1000,12 @@ p {
 
 
 @media screen and (min-width: 1200px) {
+
+  /* typography */
+
+  .section-title {
+    font-size: 2rem;
+  }
 
   /* header */
 
