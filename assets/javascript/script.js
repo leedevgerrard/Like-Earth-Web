@@ -14,7 +14,7 @@ navTogglers.forEach((navToggler) => {
 })
 })
 
-// Add event listener to header sroll system & back to top button
+// Add event listener to header scroll system & back to top button
 
 const header = document.querySelector('.header');
 const backToTopBtn = document.querySelector('.back-to-top-btn');
@@ -43,10 +43,28 @@ window.addEventListener('scroll', () => {
   }
 })
 
-// Make carousel auto slide system
+// Make wide screen navbar system
+
+document.querySelectorAll('.navbar-link').forEach((link) => {
+    link.addEventListener('click', e => {
+      document.querySelectorAll('.navbar-link').forEach((navlink) => {
+        navlink.classList.remove('active');
+      })
+      e.target.classList.add('active');
+      navbar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.classList.remove('nav-active');
+    })
+  })
+
+// Make carousel slide system
 
 const heroCarousel = document.querySelector('.hero-carousel');
 const heroCarouselItems = document.querySelectorAll('.carousel-item');
+
+const prevBtn = document.querySelector('.prev-carousel-btn');
+const nextBtn = document.querySelector('.next-carousel-btn');
+
 let currentCarouselPosition = 0;
 let lastActiveCarouselItem = heroCarouselItems[0];
 
@@ -66,6 +84,19 @@ const slideNext = () => {
   updateCarouselItem();
 }
 
+const slidePrev = () => {
+  if (currentCarouselPosition <= 0) {
+    currentCarouselPosition = heroCarouselItems.length - 1;
+  } else {
+    currentCarouselPosition--;
+  }
+
+  updateCarouselItem();
+}
+
+nextBtn.addEventListener('click', slideNext);
+prevBtn.addEventListener('click', slidePrev);
+
 let autoSlideInterval;
 
 const autoSlide = () => {
@@ -78,7 +109,7 @@ window.addEventListener('load', autoSlide);
 
 // Add observer to animate elements while entering the viewport for the first time
 
-const texts = document.querySelectorAll('.containing-text')
+const texts = document.querySelectorAll('.containing-text');
 
 const textsObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -95,7 +126,7 @@ texts.forEach(text => {
   textsObserver.observe(text);
 })
 
-const imgs = document.querySelectorAll('.containing-img')
+const imgs = document.querySelectorAll('.containing-img');
 
 const imgsObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -110,38 +141,4 @@ const imgsObserver = new IntersectionObserver(entries => {
 
 imgs.forEach(img => {
   imgsObserver.observe(img);
-})
-
-const imgsFromLeft = document.querySelectorAll('.containing-img-from-left')
-
-const imgsFromLeftObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    entry.target.classList.toggle('active', entry.isIntersecting);
-    if (entry.isIntersecting) {
-      imgsFromLeftObserver.unobserve(entry.target);
-    }
-  })
-}, {
-  threshold: 0.1,
-})
-
-imgsFromLeft.forEach(img => {
-  imgsFromLeftObserver.observe(img);
-})
-
-const imgsFromRight = document.querySelectorAll('.containing-img-from-right')
-
-const imgsFromRightObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    entry.target.classList.toggle('active', entry.isIntersecting);
-    if (entry.isIntersecting) {
-      imgsFromRightObserver.unobserve(entry.target);
-    }
-  })
-}, {
-  threshold: 0.1,
-})
-
-imgsFromRight.forEach(img => {
-  imgsFromRightObserver.observe(img);
 })
