@@ -1,14 +1,5 @@
 // 'use strict';
 
-// Add preload effect
-
-const preloader = document.querySelector('.preload');
-
-window.addEventListener('load', () => {
-  preloader.classList.add('loaded');
-  document.body.classList.add('loaded');
-})
-
 // Add event listener to navbar toggler
 
 const navbar = document.querySelector('.navbar');
